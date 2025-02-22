@@ -1,0 +1,14 @@
+.card {
+    position: relative;
+    width: 461px;
+    height: 241px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    background: #151928;
+}
+
+.card-number {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 140%;
+    color: #fff;
+}
