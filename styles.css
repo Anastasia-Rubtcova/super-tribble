@@ -16,8 +16,13 @@
     font-weight: 700;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #e6e1e1;
+    font-family: "Helvetica";
 }
 
 .content-container {
@@ -207,4 +212,99 @@ aside {
     height: 35px;
     border: none;
     margin-top: 38px;
+}
+
+.expense {
+    border-radius: 20px;
+    max-width: 572px;
+    width: 100%;
+    box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.05);
+    background: #fff;
+    padding: 28px 20px 22px 23px;
+}
+
+.expense-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 23px;
+}
+
+.expense-header-text {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 140%;
+    color: #2d3748;
+}
+
+.expense-header-button {
+    border: 1.00px solid #3182ce;
+    border-radius: 8px;
+    padding: 12px 10px;
+    max-width: 110px;
+    width: 100%;
+    max-height: 35px;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 120%;
+    text-align: center;
+    color: #3182ce;
+    background-color: transparent;
+}
+
+.expense-months {
+    display: flex;
+    flex-direction: column;
+}
+
+.expense-month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.left-expense-month {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-expense-month-name {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 140%;
+    color: #2d3748;
+    margin-bottom: 4px;
+}
+
+.left-expense-month-code {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: #a0aec0;
+}
+
+.right-expense-month {
+    display: flex;
+}
+
+.right-expense-month-sum {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    text-align: right;
+    color: #a0aec0;
+}
+
+.right-expense-month-sum-link {
+    display: flex;
+    margin-left: 16px;
+    text-decoration: none;
+}
+
+.right-expense-month-pdf {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 150%;
+    color: #2d3748;
 }
