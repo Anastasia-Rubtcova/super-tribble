@@ -1,8 +1,8 @@
 @font-face {
     font-family: "Helvetica";
     src:
-        url("./fonts/Helvetica.woff") format("woff"),
-        url("./fonts/Helvetica.woff2") format("woff2");
+        url("./fonts/Helvetica.woff2") format("woff2"),
+        url("./fonts/Helvetica.woff") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -10,120 +10,174 @@
 @font-face {
     font-family: "Helvetica";
     src:
-        url("./fonts/Helvetica-Bold.woff") format("woff"),
-        url("./fonts/Helvetica-Bold.woff2") format("woff2");
+        url("./fonts/Helvetica-Bold.woff2") format("woff2"),
+        url("./fonts/Helvetica-Bold.woff") format("woff");
     font-style: normal;
     font-weight: 700;
 }
 
-* {
+/* Сброс стилей */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0;
     padding: 0;
 }
 
-button {
-    border: none;
-    background-color: transparent;
-}
-
 body {
     background-color: #e6e1e1;
-    font-family: "Helvetica";
+    /* font-family: "Helvetica", Arial, sans-serif; */
+    font-weight: 400;
+    line-height: 1.6;
+    color: #000;
+    display: flex;
 }
 
-.content-container {
+.layout {
+    margin-left: 25px;
+    margin-top: 25px;
+}
+
+.content {
+    width: 100%;
+    padding: 25px;
+}
+
+.dashboard__wrapper-top-left {
     display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    margin-right: 25px;
+}
+.dashboard__wrapper-top {
+    display: flex;
+    align-items: flex-start;
 }
 
 .card {
     position: relative;
     max-width: 430px;
+    width: 100%;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     background: #151928;
     border-radius: 20px;
-    margin-left: 19px;
-    margin-right: 24px;
-    padding: 122px 130px 18px 31px;
+    padding: 122px 26px 37px 31px;
+    flex-shrink: 0;
 }
 
-.card-number {
-    font-family: "Helvetica";
-    font-weight: 400;
+.card__number {
+    display: inline-block;
+    font-weight: 700;
     font-size: 24px;
     line-height: 140%;
     color: #fff;
+    margin-bottom: 13px;
 }
 
-.card-symbol {
-    position: absolute;
-    right: 26px;
-    top: 22px;
-}
-
-.card-content-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.cart-content {
-    display: flex;
-    margin-top: 13px;
-    margin-bottom: 22px;
-}
-
-.card-content-wrapper:last-child {
-    margin-left: 22px;
-}
-
-.card-text {
-    font-family: font-face;
+.card__label {
     font-weight: 400;
     font-size: 10px;
     line-height: 150%;
     color: #fff;
 }
 
-.card-data-text {
-    font-family: "Helvetica";
-    font-weight: 400;
+.card__value {
+    font-weight: 700;
     font-size: 13px;
     line-height: 140%;
     color: #fff;
 }
 
-.salary {
+.card__info {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 240px;
-    padding: 30px 23px 25px;
-    margin-right: 24px;
-    background-color: #fff;
-    border-radius: 20px;
+    margin-right: 23px;
 }
 
+.card__symbol {
+    position: absolute;
+    right: 26px;
+    top: 22px;
+}
+
+.card__details {
+    display: flex;
+    flex-direction: row;
+}
+
+.card__content-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.card__content {
+    display: flex;
+    margin-top: 13px;
+    margin-bottom: 22px;
+}
+
+.card__text {
+    font-size: 10px;
+    line-height: 150%;
+    color: #fff;
+}
+
+.card__data-text {
+    font-size: 13px;
+    line-height: 140%;
+    color: #fff;
+}
+
+.salary,
 .invoices {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 240px;
-    padding: 34px 23px 27px;
+    width: 100%;
+    padding: 30px 23px 25px;
     background-color: #fff;
     border-radius: 20px;
+    box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
 }
 
-.salary-icon {
-    padding: 19px;
+.salary__icon {
+    width: 63px;
+    height: 63px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #3182ce;
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.02);
     border-radius: 8px;
     margin-bottom: 22px;
 }
 
-.salary-header {
-    font-family: "Helvetica";
-    font-weight: 400;
+.salary__header {
     font-size: 17px;
     line-height: 140%;
     text-align: center;
@@ -131,86 +185,108 @@ body {
     margin-bottom: 4px;
 }
 
-.salary-text {
-    font-family: "Helvetica";
-    font-weight: 400;
+.salary__text {
     font-size: 12px;
     line-height: 150%;
+    font-weight: 700;
     text-align: center;
     color: #a0aec0;
     margin-bottom: 27px;
 }
 
-.top-left-container {
-    display: flex;
-    align-items: center;
-}
-
-.salary-value {
-    font-family: "Helvetica";
-    font-weight: 400;
+.salary__value {
     font-size: 17px;
     line-height: 140%;
     text-align: center;
     color: #2d3748;
 }
 
-aside {
+
+.invoices__icon {
+    width: 63px;
+    height: 63px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3182ce;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    margin-bottom: 22px;
+}
+
+.invoices__header {
+    font-size: 17px;
+    line-height: 140%;
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 4px;
+}
+
+.invoices__text {
+    font-size: 12px;
+    line-height: 150%;
+    text-align: center;
+    color: #a0aec0;
+    margin-bottom: 27px;
+    font-weight: 700;
+}
+
+.invoices__value {
+    font-size: 17px;
+    line-height: 140%;
+    text-align: center;
+    color: #2d3748;
+}
+
+.sidebar {
     max-width: 265px;
     width: 100%;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.05);
-    padding: 11px 6px 17px 21px;
-    margin-left: 20px;
+    padding: 15px 23px;
 }
 
-.navigate-links {
+.sidebar__nav {
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px;
 }
 
-.navigate-link {
-    padding: 18px;
+.sidebar__link {
+    padding: 12px 16px;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+
 }
 
-.navigate-link-text {
-    font-family: "Helvetica";
-    font-weight: 400;
+.sidebar__link-text {
+    margin-left: 19.5px;
+    font-size: 12px;
+    line-height: 150%;
+    color: #a0aec0;
+}
+
+.sidebar__text {
     font-size: 12px;
     line-height: 150%;
     color: #a0aec0;
     margin-left: 20px;
 }
 
-.navigate-header {
-    font-family: "Helvetica";
-    font-weight: 400;
+.sidebar__title {
+    margin-left: 15px;
     font-size: 12px;
     line-height: 150%;
     color: #2d3748;
 }
 
-.navigate-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.sidebar__help {
+    text-align: center;
 }
 
-.navigate-img {
-    margin-top: 50px;
-}
-
-.navigate-text {
-    font-family: "Helvetica";
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 140%;
-    color: #2d3748;
-}
-
-.navigate-button {
+.sidebar__button {
     background-color: #3182ce;
     color: #fff;
     border-radius: 8px;
@@ -221,97 +297,57 @@ aside {
     margin-top: 38px;
 }
 
-.expense {
+.transactions {
     border-radius: 20px;
-    max-width: 572px;
+    max-width: 600px;
     width: 100%;
     box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.05);
     background: #fff;
-    padding: 28px 20px 22px 23px;
+    padding: 28px 22px 48px;
 }
 
-.expense-header {
+
+.transactions__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 23px;
 }
 
-.expense-header-text {
-    font-weight: 400;
+.transactions__title {
     font-size: 17px;
     line-height: 140%;
     color: #2d3748;
 }
 
-.expense-header-button {
-    border: 1.00px solid #3182ce;
+.transactions__button {
+    border: 1px solid #3182ce;
     border-radius: 8px;
     padding: 12px 10px;
     max-width: 110px;
     width: 100%;
     max-height: 35px;
-    font-weight: 400;
     font-size: 8px;
-    line-height: 120%;
     text-align: center;
     color: #3182ce;
     background-color: transparent;
 }
 
-.expense-months {
+.transactions__details {
     display: flex;
     flex-direction: column;
+
 }
 
-.expense-month {
+.transactions__item {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
 }
 
-.left-expense-month {
-    display: flex;
-    flex-direction: column;
-}
-
-.left-expense-month-name {
-    font-weight: 400;
+.transactions__date {
     font-size: 13px;
     line-height: 140%;
     color: #2d3748;
     margin-bottom: 4px;
-}
-
-.left-expense-month-code {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 150%;
-    color: #a0aec0;
-}
-
-.right-expense-month {
-    display: flex;
-}
-
-.right-expense-month-sum {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 150%;
-    text-align: right;
-    color: #a0aec0;
-}
-
-.right-expense-month-sum-link {
-    display: flex;
-    margin-left: 16px;
-    text-decoration: none;
-}
-
-.right-expense-month-pdf {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 150%;
-    color: #2d3748;
 }
