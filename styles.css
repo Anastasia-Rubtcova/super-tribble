@@ -315,3 +315,13 @@ aside {
     line-height: 150%;
     color: #2d3748;
 }
+
+.active {
+    border-radius: 8px;
+    box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.05);
+    background: #fff;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: #2d3748;
+}
