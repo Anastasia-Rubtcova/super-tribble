@@ -292,10 +292,10 @@
             <div class="dashboard__wrapper-bottom">
 
                 <div class="expense">
-                    <div class="expense__name">
-                        <span class="expence__name-title">Ваши транзакции</span>
-                        <div class="expence__name-date">
-                            <a class="expence__name-date-svg"><svg width="16" height="15" viewBox="0 0 16 15"
+                    <div class="expense__header">
+                        <span class="expence__title">Ваши транзакции</span>
+                        <div class="expense__date">
+                            <a class="expense__date-svg"><svg width="16" height="15" viewBox="0 0 16 15"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M12.6876 2.34317H3.31262C2.53597 2.34317 1.90637 2.97277 1.90637 3.74942V12.1869C1.90637 12.9636 2.53597 13.5932 3.31262 13.5932H12.6876C13.4643 13.5932 14.0939 12.9636 14.0939 12.1869V3.74942C14.0939 2.97277 13.4643 2.34317 12.6876 2.34317Z"
@@ -336,48 +336,70 @@
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </a>
-                            <span class="expence__name-date-text">23 - 30 марта 2020 года</span>
+                            <span class="expense__date-text">23 - 30 марта 2020 года</span>
                         </div>
                     </div>
-                    <div class="expense__container">
-                        <span class="expense__title">САМЫЙ НОВЫЙ</span>
-                        <div class="expense__content">
-                            <div class="expense__content-block">
-                                <div class="expense__content-block-arrow"><svg width="13" height="12"
-                                        viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.87506 6.28125L6.50006 9.65625L3.12506 6.28125" stroke="#E53E3E"
-                                            stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M6.49982 9.1875L6.49982 2.34375" stroke="#E53E3E" stroke-width="1.125"
-                                            stroke-linecap="round" stroke-linejoin="round" />
+                    <div class="expense__transactions">
+                        <span class="expense__transactions-title">САМЫЙ НОВЫЙ</span>
+                        <div class="expense__transactions-list">
+                            <div class="expense__transaction">
+                                <div class="expense__transaction-arrow">
+                                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.87506 6.28125L6.50006 9.65625L3.12506 6.28125" stroke="#E53E3E" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.49982 9.1875L6.49982 2.34375" stroke="#E53E3E" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
-                                <div class="expense__content-block-name">
-                                    <span class="expense__content-block-name-text">Яндекс</span>
-                                    <span class="expense__content-block-name-time">27 марта 2020 года, в 12:30
-                                        часов</span>
+                                <div class="expense__transaction-details">
+                                    <span class="expense__transaction-name">Яндекс</span>
+                                    <span class="expense__transaction-time">27 марта 2020 года, в 12:30 часов</span>
                                 </div>
-                                <span class="expense__content-block-sum">-2500₽</span>
+                                <span class="expense__transaction-amount">-2500₽</span>
                             </div>
-                            <div class="expense__content-block">
-                                <div class="expense__content-block-arrow"><svg width="13" height="12"
-                                        viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.12506 5.71875L6.50006 2.34375L9.87506 5.71875" stroke="#48BB78"
-                                            stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M6.50031 2.8125L6.50031 9.65625" stroke="#48BB78" stroke-width="1.125"
-                                            stroke-linecap="round" stroke-linejoin="round" />
+                            <div class="expense__transaction">
+                                <div class="expense__transaction-arrow">
+                                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.12506 5.71875L6.50006 2.34375L9.87506 5.71875" stroke="#48BB78" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.50031 2.8125L6.50031 9.65625" stroke="#48BB78" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-
                                 </div>
-                                <div class="expense__content-block-name">
-                                    <span class="expense__content-block-name-text">Газпром</span>
-                                    <span class="expense__content-block-name-time">27 марта 2020 года, в 12:30
-                                        часов</span>
+                                <div class="expense__transaction-details">
+                                    <span class="expense__transaction-name">Газпром</span>
+                                    <span class="expense__transaction-time">27 марта 2020 года, в 12:30 часов</span>
                                 </div>
-                                <span class="expense__content-block-sum">+2500₽</span>
+                                <span class="expense__transaction-amount">+2500₽</span>
+                            </div>
+                        </div>
+                    </div><div class="expense__transactions">
+                        <span class="expense__transactions-title">САМЫЙ НОВЫЙ</span>
+                        <div class="expense__transactions-list">
+                            <div class="expense__transaction">
+                                <div class="expense__transaction-arrow">
+                                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.87506 6.28125L6.50006 9.65625L3.12506 6.28125" stroke="#E53E3E" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.49982 9.1875L6.49982 2.34375" stroke="#E53E3E" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="expense__transaction-details">
+                                    <span class="expense__transaction-name">Яндекс</span>
+                                    <span class="expense__transaction-time">27 марта 2020 года, в 12:30 часов</span>
+                                </div>
+                                <span class="expense__transaction-amount">-2500₽</span>
+                            </div>
+                            <div class="expense__transaction">
+                                <div class="expense__transaction-arrow">
+                                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.12506 5.71875L6.50006 2.34375L9.87506 5.71875" stroke="#48BB78" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.50031 2.8125L6.50031 9.65625" stroke="#48BB78" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="expense__transaction-details">
+                                    <span class="expense__transaction-name">Газпром</span>
+                                    <span class="expense__transaction-time">27 марта 2020 года, в 12:30 часов</span>
+                                </div>
+                                <span class="expense__transaction-amount">+2500₽</span>
                             </div>
                         </div>
                     </div>
-                    <div></div>
                 </div>
                 <div class="invoice">
                     <h2 class="invoice__title">Информация о выставлении счетов</h2>
