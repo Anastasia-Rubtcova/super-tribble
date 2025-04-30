@@ -654,3 +654,8 @@ body {
     gap: 15px;
     margin-bottom: 25px;
 }
+
+.content-form-input {
+    display: flex;
+    flex-direction: column;
+}
