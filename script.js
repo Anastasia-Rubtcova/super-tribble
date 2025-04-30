@@ -147,7 +147,90 @@ function renderInvoicesList(data) {
 fetch(`${API_BASE_URL}/accounts`)
     .then(response => response.json())
     .then((data) => {
-       document.getElementById("salary").textContent = data[0].balance;
-       document.getElementById("frilance").textContent = data[1].balance;
+        document.getElementById("salary").textContent = data[0].balance;
+        document.getElementById("frilance").textContent = data[1].balance;
     })
 
+function renderInvoices(invoices) {
+    const container = document.querySelector('.invoice__list');
+    container.innerHTML = ''; // очищаем старые данные
+
+    invoices.forEach((invoice) => {
+        const item = document.createElement('div');
+        item.classList.add('invoice__item');
+
+        const content = document.createElement('div');
+        content.classList.add('invoice__content');
+
+        const name = document.createElement('h3');
+        name.classList.add('invoice__name');
+        name.textContent = invoice.name;
+
+        const company = document.createElement('p');
+        company.classList.add('invoice__data');
+        company.textContent = `Название компании: ${invoice.company}`;
+
+        const email = document.createElement('p');
+        email.classList.add('invoice__data');
+        email.textContent = `Адрес электронной почты: ${invoice.email}`;
+
+        const vat = document.createElement('p');
+        vat.classList.add('invoice__data');
+        vat.textContent = `Номер НДС: ${invoice.vat}`;
+
+        content.append(name, company, email, vat);
+
+        const actions = document.createElement('div');
+        actions.classList.add('invoice__actions');
+
+        // Кнопка удаления
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('invoice__delete');
+
+        const deleteIcon = document.createElement('span');
+        deleteIcon.classList.add('invoice__delete-icon');
+
+        deleteIcon.textContent = `<svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_0_190)">
+                                                <path
+                                                    d="M3.75 12.375C3.75 13.0625 4.3125 13.625 5 13.625H10C10.6875 13.625 11.25 13.0625 11.25 12.375V6.125C11.25 5.4375 10.6875 4.875 10 4.875H5C4.3125 4.875 3.75 5.4375 3.75 6.125V12.375ZM11.25 3H9.6875L9.24375 2.55625C9.13125 2.44375 8.96875 2.375 8.80625 2.375H6.19375C6.03125 2.375 5.86875 2.44375 5.75625 2.55625L5.3125 3H3.75C3.40625 3 3.125 3.28125 3.125 3.625C3.125 3.96875 3.40625 4.25 3.75 4.25H11.25C11.5937 4.25 11.875 3.96875 11.875 3.625C11.875 3.28125 11.5937 3 11.25 3Z"
+                                                    fill="#E53E3E" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_0_190">
+                                                    <rect width="15" height="15" fill="white"
+                                                        transform="translate(0 0.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>`;
+        const deleteText = document.createElement('span');
+        deleteText.classList.add('invoice__delete-text');
+        deleteText.textContent = 'УДАЛИТЬ';
+
+        deleteBtn.append(deleteIcon, deleteText);
+
+        // Кнопка редактирования
+        const editBtn = document.createElement('button');
+        editBtn.classList.add('invoice__edit');
+        editBtn.textContent = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_0_191)">
+                                            <path
+                                                d="M1.99988 9.23V10.75C1.99988 10.89 2.10988 11 2.24988 11H3.76988C3.83488 11 3.89988 10.975 3.94488 10.925L9.40488 5.47L7.52988 3.595L2.07488 9.05C2.02488 9.1 1.99988 9.16 1.99988 9.23ZM10.8549 4.02C11.0499 3.825 11.0499 3.51 10.8549 3.315L9.68488 2.145C9.48988 1.95 9.17488 1.95 8.97988 2.145L8.06488 3.06L9.93988 4.935L10.8549 4.02Z"
+                                                fill="#2D3748" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_0_191">
+                                                <rect width="12" height="12" fill="white"
+                                                    transform="translate(0.499878 0.5)" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>`;
+
+        actions.append(deleteBtn, editBtn);
+
+        item.append(content, actions);
+        container.appendChild(item);
+    });
+}
