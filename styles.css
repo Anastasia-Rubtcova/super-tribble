@@ -638,8 +638,24 @@ body {
     border-radius: 10px;
 }
 
+.modal-content-button:hover {
+    background-color: #bdbec1;
+}
+
+.modal-content-button:active {
+    background-color: #516074;
+}
+
 .modal-content-button:last-child {
     background-color: #3182ce;
+}
+
+.modal-content-button:last-child:hover {
+    background-color: #70b1ed;
+}
+
+.modal-content-button:last-child:active {
+    background-color: #0a5194;
 }
 
 .modal-content-svg {
@@ -658,4 +674,14 @@ body {
 .content-form-input {
     display: flex;
     flex-direction: column;
+}
+
+.modal-content-form input {
+    padding: 7px 25px;
+    margin-top: 10px;
+}
+
+.error-block {
+    color: #e53e3e;
+    font-size: 12px;
 }

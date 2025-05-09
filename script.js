@@ -144,12 +144,16 @@ function renderInvoicesList(data) {
     }
 }
 
-fetch(`${API_BASE_URL}/accounts`)
+// fetch(`${API_BASE_URL}/accounts`)
+//     .then(response => response.json())
+//     .then((data) => {
+//         document.getElementById("salary").textContent = data[0].balance;
+//         document.getElementById("frilance").textContent = data[1].balance;
+//     })
+
+fetch(`${API_BASE_URL}/invoice-details`)
     .then(response => response.json())
-    .then((data) => {
-        document.getElementById("salary").textContent = data[0].balance;
-        document.getElementById("frilance").textContent = data[1].balance;
-    })
+    .then((data) => renderInvoices(data))
 
 function renderInvoices(invoices) {
     const container = document.querySelector('.invoice__list');
@@ -164,7 +168,7 @@ function renderInvoices(invoices) {
 
         const name = document.createElement('h3');
         name.classList.add('invoice__name');
-        name.textContent = invoice.name;
+        name.textContent = invoice.fullName;
 
         const company = document.createElement('p');
         company.classList.add('invoice__data');
@@ -176,7 +180,7 @@ function renderInvoices(invoices) {
 
         const vat = document.createElement('p');
         vat.classList.add('invoice__data');
-        vat.textContent = `Номер НДС: ${invoice.vat}`;
+        vat.textContent = `Номер НДС: ${invoice.vatNumber}`;
 
         content.append(name, company, email, vat);
 
@@ -190,7 +194,7 @@ function renderInvoices(invoices) {
         const deleteIcon = document.createElement('span');
         deleteIcon.classList.add('invoice__delete-icon');
 
-        deleteIcon.textContent = `<svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+        deleteIcon.innerHTML = `<svg width="15" height="16" viewBox="0 0 15 16" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_0_190)">
                                                 <path
@@ -207,13 +211,39 @@ function renderInvoices(invoices) {
         const deleteText = document.createElement('span');
         deleteText.classList.add('invoice__delete-text');
         deleteText.textContent = 'УДАЛИТЬ';
+        deleteBtn.addEventListener('click', () => {
+            const modalDelete = document.getElementById("modalDelete");
+            modalDelete.style.display = "block";
+
+            const cancelButton = document.querySelectorAll('.modal-content-button')[0];
+            const deleteButton = document.querySelectorAll('.modal-content-button')[1];
+            const crossButton = document.querySelectorAll('.modal-content-svg')[0];
+
+            deleteButton.addEventListener('click', () => {
+                fetch(`${API_BASE_URL}/invoice-details/${invoice.id}`, {
+                    method: "DELETE"
+                })
+                modalDelete.style.display = "none";
+            })
+            cancelButton.addEventListener('click', () => {
+                modalDelete.style.display = "none";
+            })
+            crossButton.addEventListener('click', () => {
+                modalDelete.style.display = "none";
+            })
+            window.onclick = (e) => {
+                if (e.target == modalDelete) {
+                    modalDelete.style.display = "none"
+                }
+            }
+        })
 
         deleteBtn.append(deleteIcon, deleteText);
 
         // Кнопка редактирования
         const editBtn = document.createElement('button');
         editBtn.classList.add('invoice__edit');
-        editBtn.textContent = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+        editBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_0_191)">
                                             <path
@@ -232,5 +262,110 @@ function renderInvoices(invoices) {
 
         item.append(content, actions);
         container.appendChild(item);
+
+        editBtn.addEventListener('click', () => {
+
+            const modal = document.getElementById("modalEdit");
+            modal.style.display = "block";
+
+            const company = document.getElementById("company")
+            const mail = document.getElementById("mail")
+            const nds = document.getElementById("nds")
+            const name = document.getElementById("name")
+
+            company.value = ''
+            mail.value = ''
+            nds.value = ''
+            name.value = ''
+
+            fetch(`${API_BASE_URL}/invoice-details/${invoice.id}`)
+                .then(response => response.json())
+                .then((data) => {
+                    company.value = data.company || ''
+                    mail.value = data.email || ''
+                    nds.value = data.vatNumber || ''
+                    name.value = data.fullName || ''
+                })
+
+            const cancelButton = document.querySelectorAll('.modal-content-button')[2];
+            const saveButton = document.querySelectorAll('.modal-content-button')[3];
+            const crossButton = document.querySelectorAll('.modal-content-svg')[1];
+            const errorBlock = document.getElementById('error')
+
+            saveButton.addEventListener('click', () => {
+                errorBlock.textContent = ''
+                const invoiceUpdate = {
+                    fullName: name.value.trim(),
+                    company: company.value.trim(),
+                    email: mail.value.trim(),
+                    vatNumber: nds.value.trim(),
+                }
+
+                const errors = validateForm(invoiceUpdate)
+
+                if(errors.length > 0) {
+                    errorBlock.innerHTML = errors.join('<br>');
+                    return
+                }
+
+                fetch(`${API_BASE_URL}/invoice-details/${invoice.id}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(invoiceUpdate)
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            errorBlock.textContent = 'Возникла ошибка при обновлении данных'
+                        } else {
+                            modal.style.display = "none";
+                        }
+                    })
+            })
+
+            cancelButton.addEventListener('click', () => {
+                modal.style.display = "none";
+            })
+            crossButton.addEventListener('click', () => {
+                modal.style.display = "none";
+            })
+            window.onclick = (e) => {
+                if (e.target == modal) {
+                    modal.style.display = "none"
+                }
+            }
+        })
     });
+}
+
+function validateForm(data) {
+    let errors = []
+
+    const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
+    if (!data.fullName) {
+        errors.push("Имя обязательно")
+    } else if (!nameRegex.test(data.fullName)) {
+        errors.push("Некорректное имя")
+    }
+
+    if (!data.company) {
+        errors.push("Название компании обязательно")
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data.email) {
+        errors.push("Адрес email обязательно")
+    } else if (!emailRegex.test(data.email)) {
+        errors.push("Некорректный адрес email")
+    }
+
+    const vatRegex = /^[A-Za-z]{2,3}[0-9]{7,9}$/;
+    if (!data.vatNumber) {
+        errors.push("НДС номер обязательно")
+    } else if (!vatRegex.test(data.vatNumber)) {
+        errors.push("Некорректный НДС номер")
+    }
+
+    return errors
 }

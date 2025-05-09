@@ -425,7 +425,7 @@
                 <div class="invoice">
                     <h2 class="invoice__title">Информация о выставлении счетов</h2>
                     <div class="invoice__list">
-                        <div class="invoice__item">
+                        <!-- <div class="invoice__item">
                             <div class="invoice__content">
                                 <h3 class="invoice__name">Оливер Лиам</h3>
                                 <p class="invoice__data">Название компании: Викинг Буррито</p>
@@ -566,8 +566,8 @@
 
                                 </button>
                             </div>
-                        </div>
-                    </div>
+                        </div> -->
+                    </div> 
                 </div>
             </div>
         </section>
@@ -605,16 +605,20 @@
             </button>
             <h2 class="modal-content-title">Сохранить изменения</h2>
             <form class="modal-content-form">
+                <label for="name" class="content-form-input">Имя:
+                    <input type="text" id="name" name="name" required/>
+                </label>
                 <label for="company" class="content-form-input">Название компании:
-                    <input type="text" id="company" name="company" />
+                    <input type="text" id="company" name="company" required/>
                 </label>
                 <label for="mail" class="content-form-input">Адрес электронной почты:
-                    <input type="text" id="mail" name="mail" />
+                    <input type="email" id="mail" name="mail" required/>
                 </label>
                 <label for="nds" class="content-form-input">Номер НДС:
-                    <input type="text" id="nds" name="nds" />
+                    <input type="text" id="nds" name="nds" required/>
                 </label>
             </form>
+            <div class="error-block" id="error"></div>
             <div class="modal-content-buttons">
                 <button class="modal-content-button">Отмена</button>
                 <button class="modal-content-button">Сохранить изменения</button>
