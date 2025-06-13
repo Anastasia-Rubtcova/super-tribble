@@ -151,9 +151,9 @@ function renderInvoicesList(data) {
 //         document.getElementById("frilance").textContent = data[1].balance;
 //     })
 
-fetch(`${API_BASE_URL}/invoice-details`)
-    .then(response => response.json())
-    .then((data) => renderInvoices(data))
+// fetch(`${API_BASE_URL}/invoice-details`)
+//     .then(response => response.json())
+//     .then((data) => renderInvoices(data))
 
 function renderInvoices(invoices) {
     const container = document.querySelector('.invoice__list');
@@ -303,7 +303,7 @@ function renderInvoices(invoices) {
 
                 const errors = validateForm(invoiceUpdate)
 
-                if(errors.length > 0) {
+                if (errors.length > 0) {
                     errorBlock.innerHTML = errors.join('<br>');
                     return
                 }
@@ -369,3 +369,227 @@ function validateForm(data) {
 
     return errors
 }
+
+fetch(`${API_BASE_URL}/payment-methods`)
+    .then(response => response.json())
+    .then((data) => renderCards(data))
+
+function renderCards(cards) {
+    const container = document.querySelector(".payment");
+    container.innerHTML = '';
+
+    const header = document.createElement('div');
+    header.classList.add('payment__header');
+
+    const title = document.createElement('span');
+    title.classList.add('payment__title');
+    title.textContent = "Способ оплаты";
+
+    const button = document.createElement('button');
+    button.classList.add('payment__button');
+    button.textContent = "ДОБАВИТЬ";
+
+    header.append(title, button);
+
+    const input = document.createElement('div');
+    input.classList.add('payment__input');
+
+
+    cards.forEach((card) => {
+        const formContainer = document.createElement('div');
+        formContainer.classList.add('payment__form-container');
+
+        const formSVG = document.createElement('div');
+        if (card.type === "Visa") {
+            formSVG.innerHTML = `<svg width="21" height="15" viewBox="0 0 21 15" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="6.63156" cy="7.49999" r="6.63158" fill="#EB001B" />
+                                    <circle cx="14.3684" cy="7.49999" r="6.63158" fill="#F79E1B" />
+                                </svg>`
+        } else if (card.type === "Mastercard") {
+            formSVG.innerHTML = `<svg width="25" height="9" viewBox="0 0 25 9" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12.6707 2.96349C12.6568 4.15055 13.6529 4.81298 14.4033 5.20684C15.1743 5.61099 15.4333 5.87013 15.4303 6.23147C15.4245 6.78459 14.8153 7.02862 14.2452 7.03812C13.2505 7.05475 12.6722 6.74889 12.2124 6.51753L11.8541 8.32341C12.3154 8.55247 13.1695 8.75217 14.0553 8.76087C16.1344 8.76087 17.4947 7.65543 17.5021 5.94145C17.5102 3.76625 14.7086 3.64579 14.7277 2.67348C14.7344 2.37871 14.9955 2.06408 15.5679 1.98406C15.8511 1.94368 16.6332 1.91274 17.5197 2.35252L17.8677 0.605286C17.391 0.418253 16.7781 0.239136 16.0152 0.239136C14.0583 0.239136 12.6818 1.35962 12.6707 2.96349ZM21.2114 0.389687C20.8318 0.389687 20.5118 0.628245 20.3691 0.99433L17.399 8.63249H19.4766L19.8901 7.40183H22.429L22.6688 8.63249H24.4999L22.902 0.389687H21.2114ZM21.502 2.61641L22.1016 5.7116H20.4595L21.502 2.61641ZM10.1518 0.389687L8.51412 8.63249H10.4938L12.1307 0.389687H10.1518ZM7.22297 0.389687L5.16227 6.00003L4.32872 1.22966C4.23091 0.697187 3.84466 0.389687 3.41573 0.389687H0.04704L-6.10352e-05 0.629037C0.691513 0.790671 1.47723 1.0514 1.9532 1.33033C2.24451 1.50067 2.32768 1.64964 2.4233 2.05458L4.00208 8.63249H6.09444L9.30204 0.389687H7.22297Z"
+                                        fill="#3182CE" />
+                                </svg>`
+        }
+
+        const cardNumber = document.createElement('input');
+        cardNumber.classList.add("payment__form")
+        cardNumber.placeholder = card.number;
+        cardNumber.value = card.number;
+        cardNumber.maxlength = "19";
+        cardNumber.disabled = true;
+
+        const cardSVG1 = document.createElement("button");
+        cardSVG1.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_0_289)">
+                                        <path
+                                            d="M2.00009 9.23V10.75C2.00009 10.89 2.11009 11 2.25009 11H3.77009C3.83509 11 3.90009 10.975 3.94509 10.925L9.40509 5.47L7.53009 3.595L2.07509 9.05C2.02509 9.1 2.00009 9.16 2.00009 9.23ZM10.8551 4.02C11.0501 3.825 11.0501 3.51 10.8551 3.315L9.68509 2.145C9.49009 1.95 9.17509 1.95 8.98009 2.145L8.06509 3.06L9.94009 4.935L10.8551 4.02Z"
+                                            fill="#2D3748" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_0_289">
+                                            <rect width="12" height="12" fill="white"
+                                                transform="translate(0.500092 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>`
+
+        const cardSVG2 = document.createElement("button");
+        const cardSVG3 = document.createElement("button");
+
+        formContainer.append(formSVG, cardNumber, cardSVG1, cardSVG2, cardSVG3);
+        input.append(formContainer);
+
+        cardSVG1.addEventListener('click', () => {
+            cardNumber.disabled = false;
+            cardNumber.value = '';
+
+            cardSVG1.innerHTML = ``
+            cardSVG2.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+<path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
+</svg>`
+            cardSVG3.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+<linearGradient id="I9GV0SozQFknxHSR6DCx5a_70yRC8npwT3d_gr1" x1="9.858" x2="38.142" y1="9.858" y2="38.142" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#21ad64"></stop><stop offset="1" stop-color="#088242"></stop></linearGradient><path fill="url(#I9GV0SozQFknxHSR6DCx5a_70yRC8npwT3d_gr1)" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path d="M32.172,16.172L22,26.344l-5.172-5.172c-0.781-0.781-2.047-0.781-2.828,0l-1.414,1.414	c-0.781,0.781-0.781,2.047,0,2.828l8,8c0.781,0.781,2.047,0.781,2.828,0l13-13c0.781-0.781,0.781-2.047,0-2.828L35,16.172	C34.219,15.391,32.953,15.391,32.172,16.172z" opacity=".05"></path><path d="M20.939,33.061l-8-8c-0.586-0.586-0.586-1.536,0-2.121l1.414-1.414c0.586-0.586,1.536-0.586,2.121,0	L22,27.051l10.525-10.525c0.586-0.586,1.536-0.586,2.121,0l1.414,1.414c0.586,0.586,0.586,1.536,0,2.121l-13,13	C22.475,33.646,21.525,33.646,20.939,33.061z" opacity=".07"></path><path fill="#fff" d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414c0.391-0.391,1.024-0.391,1.414,0	L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414c0.391,0.391,0.391,1.024,0,1.414l-13,13	C22.317,33.098,21.683,33.098,21.293,32.707z"></path>
+</svg>`
+
+            cardSVG3.addEventListener('click', () => {
+
+                console.log(cardNumber.value);
+                cardNumber.disabled = true;
+                cardSVG1.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_0_289)">
+                                        <path
+                                            d="M2.00009 9.23V10.75C2.00009 10.89 2.11009 11 2.25009 11H3.77009C3.83509 11 3.90009 10.975 3.94509 10.925L9.40509 5.47L7.53009 3.595L2.07509 9.05C2.02509 9.1 2.00009 9.16 2.00009 9.23ZM10.8551 4.02C11.0501 3.825 11.0501 3.51 10.8551 3.315L9.68509 2.145C9.49009 1.95 9.17509 1.95 8.98009 2.145L8.06509 3.06L9.94009 4.935L10.8551 4.02Z"
+                                            fill="#2D3748" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_0_289">
+                                            <rect width="12" height="12" fill="white"
+                                                transform="translate(0.500092 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>`;
+                cardSVG2.innerHTML = ``;
+                cardSVG3.innerHTML = ``;
+
+                                fetch(`${API_BASE_URL}/payment-methods/${payment - methods.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ number: cardNumber.value.trim() })
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            errorBlock.textContent = 'Возникла ошибка при обновлении данных'
+                        }
+                    })
+            })
+
+            cardSVG2.addEventListener('click', () => {
+                cardNumber.value = card.number;
+                cardNumber.disabled = true;
+                cardSVG1.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_0_289)">
+                                        <path
+                                            d="M2.00009 9.23V10.75C2.00009 10.89 2.11009 11 2.25009 11H3.77009C3.83509 11 3.90009 10.975 3.94509 10.925L9.40509 5.47L7.53009 3.595L2.07509 9.05C2.02509 9.1 2.00009 9.16 2.00009 9.23ZM10.8551 4.02C11.0501 3.825 11.0501 3.51 10.8551 3.315L9.68509 2.145C9.49009 1.95 9.17509 1.95 8.98009 2.145L8.06509 3.06L9.94009 4.935L10.8551 4.02Z"
+                                            fill="#2D3748" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_0_289">
+                                            <rect width="12" height="12" fill="white"
+                                                transform="translate(0.500092 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>`;
+                cardSVG2.innerHTML = ``;
+                cardSVG3.innerHTML = ``;
+            })
+        })
+
+        return input;
+
+    })
+
+    button.addEventListener('click', () => {
+        const formContainer = document.createElement('div');
+        formContainer.classList.add('payment__form-container');
+
+        const formSVG = document.createElement('div');
+
+        const cardNumber = document.createElement('input');
+        cardNumber.classList.add("payment__form")
+        cardNumber.maxlength = "19";
+        cardNumber.disabled = false;
+
+        const cardSVG1 = document.createElement("button");
+
+        const cardSVG2 = document.createElement("button");
+        cardSVG2.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+    <path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
+    </svg>`
+
+        const cardSVG3 = document.createElement("button");
+        cardSVG3.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+    <linearGradient id="I9GV0SozQFknxHSR6DCx5a_70yRC8npwT3d_gr1" x1="9.858" x2="38.142" y1="9.858" y2="38.142" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#21ad64"></stop><stop offset="1" stop-color="#088242"></stop></linearGradient><path fill="url(#I9GV0SozQFknxHSR6DCx5a_70yRC8npwT3d_gr1)" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path d="M32.172,16.172L22,26.344l-5.172-5.172c-0.781-0.781-2.047-0.781-2.828,0l-1.414,1.414	c-0.781,0.781-0.781,2.047,0,2.828l8,8c0.781,0.781,2.047,0.781,2.828,0l13-13c0.781-0.781,0.781-2.047,0-2.828L35,16.172	C34.219,15.391,32.953,15.391,32.172,16.172z" opacity=".05"></path><path d="M20.939,33.061l-8-8c-0.586-0.586-0.586-1.536,0-2.121l1.414-1.414c0.586-0.586,1.536-0.586,2.121,0	L22,27.051l10.525-10.525c0.586-0.586,1.536-0.586,2.121,0l1.414,1.414c0.586,0.586,0.586,1.536,0,2.121l-13,13	C22.475,33.646,21.525,33.646,20.939,33.061z" opacity=".07"></path><path fill="#fff" d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414c0.391-0.391,1.024-0.391,1.414,0	L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414c0.391,0.391,0.391,1.024,0,1.414l-13,13	C22.317,33.098,21.683,33.098,21.293,32.707z"></path>
+    </svg>`
+
+        formContainer.append(formSVG, cardNumber, cardSVG1, cardSVG2, cardSVG3);
+        input.append(formContainer);
+
+        let newCard = {
+            "id": '',
+            "type": "",
+            "number": cardNumber.value
+        }
+
+        fetch(`${API_BASE_URL}/payment-methods`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCard)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    errorBlock.textContent = 'Возникла ошибка при получении данных'
+                }
+            })
+
+        cardSVG3.addEventListener('click', () => {
+            cardNumber.disabled = true;
+            cardSVG1.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_0_289)">
+                                            <path
+                                                d="M2.00009 9.23V10.75C2.00009 10.89 2.11009 11 2.25009 11H3.77009C3.83509 11 3.90009 10.975 3.94509 10.925L9.40509 5.47L7.53009 3.595L2.07509 9.05C2.02509 9.1 2.00009 9.16 2.00009 9.23ZM10.8551 4.02C11.0501 3.825 11.0501 3.51 10.8551 3.315L9.68509 2.145C9.49009 1.95 9.17509 1.95 8.98009 2.145L8.06509 3.06L9.94009 4.935L10.8551 4.02Z"
+                                                fill="#2D3748" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_0_289">
+                                                <rect width="12" height="12" fill="white"
+                                                    transform="translate(0.500092 0.5)" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>`;
+            cardSVG2.innerHTML = ``;
+            cardSVG3.innerHTML = ``;
+        })
+
+        cardSVG2.addEventListener('click', () => {
+            formContainer.remove();
+        })
+    })
+
+
+    container.append(header, input);
+
+}
+
+

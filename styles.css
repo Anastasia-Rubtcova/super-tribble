@@ -569,6 +569,7 @@ body {
     /* max-width: 315px;
     width: 100%; */
     background-color: #fff;
+    display: flex;
 }
 
 .payment__form {
@@ -684,4 +685,12 @@ body {
 .error-block {
     color: #e53e3e;
     font-size: 12px;
+}
+
+button:hover {
+    background-color: #3d0deb;
+}
+
+button:active {
+    background-color: #95d1ef;
 }
